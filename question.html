@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Can We Talk?</title>
+  <title>Question</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -20,7 +20,7 @@
     
     form {
       max-width: 400px;
-      margin: 0 auto;
+      margin: 100px auto;
       background-color: rgba(255, 255, 255, 0.8);
       padding: 20px;
       border-radius: 15px;
@@ -46,6 +46,7 @@
     }
     
     .button-container button {
+      background-color: #fff;
         border-radius: 15%;
       margin: 0 10px;
       padding: 10px 20px;
@@ -73,8 +74,8 @@
   <form onsubmit="return validateForm()">
     <label for="choice">Choose:</label>
     <div class="button-container">
-      <button type="button"  onclick="selectChoice('yes')">Yes</button>
-      <button type="button" onclick="selectChoice('no')">No</button>
+      <button type="button" id="yb"  onclick="selectChoice('yes')">Yes</button>
+      <button type="button" id="nb" onclick="selectChoice('no')">No</button>
     </div>
     <br>
     <button style="border-radius: 15%; padding: 10px 15px;" type="submit">Submit</button>
@@ -86,6 +87,14 @@
     var selectedChoice = null;
 
     function selectChoice(choice) {
+      if(choice=="yes"){
+        document.getElementById('yb').style.backgroundColor = "lightgreen";
+        document.getElementById('nb').style.backgroundColor = "white";
+      }
+      else if(choice=="no"){
+        document.getElementById('yb').style.backgroundColor = "white";
+        document.getElementById('nb').style.backgroundColor = "red";
+      }
       var buttons = document.querySelectorAll('.button-container button');
       buttons.forEach(function(btn) {
         btn.classList.remove('selected');
@@ -108,7 +117,7 @@
       } else {
         errorMessage.textContent = "";
         if (selectedChoice === "yes") {
-          var message = encodeURIComponent("she said yes");
+          var message = encodeURIComponent("Let's talk");
           var phoneNumber = "201022734424"; // Your phone number
 
           window.open("https://api.whatsapp.com/send?phone=" + phoneNumber + "&text=" + message, "_blank");
