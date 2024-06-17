@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Can We Talk?</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      background-image: url('https://images.pexels.com/photos/887349/pexels-photo-887349.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      text-align: center;
+      padding: 20px;
+    }
+    
+    h1 {
+      color: #fff;
+    }
+    
+    form {
+      max-width: 400px;
+      margin: 0 auto;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 10px;
+      color: #333;
+    }
+    
+    .error-message {
+      color: red;
+      margin-top: 10px;
+    }
+    
+    .button-container {
+      display: flex;
+      justify-content: center;
+      border-radius: 20%;
+      margin-top: 20px;
+    }
+    
+    .button-container button {
+        border-radius: 15%;
+      margin: 0 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+    
+    .selected {
+      background-color: #4CAF50;
+      border-radius: 15%;
+      color: #fff;
+    }
+
+    .signature {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      font-size: 15px;
+      color: #fff;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <h1>Can We Talk?</h1>
+  <form onsubmit="return validateForm()">
+    <label for="choice">Choose:</label>
+    <div class="button-container">
+      <button type="button"  onclick="selectChoice('yes')">Yes</button>
+      <button type="button" onclick="selectChoice('no')">No</button>
+    </div>
+    <br>
+    <button style="border-radius: 15%; padding: 10px 15px;" type="submit">Submit</button>
+    <p id="error-message" class="error-message"></p>
+    <div class="signature">Made specially for Menna</div>
+  </form>
+
+  <script>
+    var selectedChoice = null;
+
+    function selectChoice(choice) {
+      var buttons = document.querySelectorAll('.button-container button');
+      buttons.forEach(function(btn) {
+        btn.classList.remove('selected');
+      });
+
+      selectedChoice = choice;
+      var selectedButton = document.querySelector('.button-container button[data-choice="' + choice + '"]');
+      selectedButton.classList.add('selected');
+    }
+
+    function validateForm() {
+      var errorMessage = document.getElementById("error-message");
+
+      if (selectedChoice === null) {
+        errorMessage.textContent = "Please make a choice.";
+        return false;
+      } else if (selectedChoice === "no") {
+        errorMessage.textContent = "No is not an option.";
+        return false;
+      } else {
+        errorMessage.textContent = "";
+        if (selectedChoice === "yes") {
+          var message = encodeURIComponent("she said yes");
+          var phoneNumber = "201022734424"; // Your phone number
+
+          window.open("https://api.whatsapp.com/send?phone=" + phoneNumber + "&text=" + message, "_blank");
+        }
+        return true;
+      }
+    }
+  </script>
+</body>
+</html>
